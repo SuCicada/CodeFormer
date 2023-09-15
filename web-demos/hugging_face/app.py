@@ -13,12 +13,12 @@ import gradio as gr
 
 from torchvision.transforms.functional import normalize
 
-from basicsr.archs.rrdbnet_arch import RRDBNet
-from basicsr.utils import imwrite, img2tensor, tensor2img
-from basicsr.utils.download_util import load_file_from_url
-from basicsr.utils.misc import gpu_is_available, get_device
-from basicsr.utils.realesrgan_utils import RealESRGANer
-from basicsr.utils.registry import ARCH_REGISTRY
+from cfbasicsr.archs.rrdbnet_arch import RRDBNet
+from cfbasicsr.utils import imwrite, img2tensor, tensor2img
+from cfbasicsr.utils.download_util import load_file_from_url
+from cfbasicsr.utils.misc import gpu_is_available, get_device
+from cfbasicsr.utils.realesrgan_utils import RealESRGANer
+from cfbasicsr.utils.registry import ARCH_REGISTRY
 
 from facelib.utils.face_restoration_helper import FaceRestoreHelper
 from facelib.utils.misc import is_gray
@@ -119,9 +119,9 @@ def inference(image, background_enhance, face_upsample, upscale, codeformer_fide
 
         upscale = int(upscale) # convert type to int
         if upscale > 4: # avoid memory exceeded due to too large upscale
-            upscale = 4 
+            upscale = 4
         if upscale > 2 and max(img.shape[:2])>1000: # avoid memory exceeded due to too large img resolution
-            upscale = 2 
+            upscale = 2
         if max(img.shape[:2]) > 1500: # avoid memory exceeded due to too large img resolution
             upscale = 1
             background_enhance = False
@@ -269,7 +269,7 @@ demo = gr.Interface(
     ],
     title=title,
     description=description,
-    article=article,       
+    article=article,
     examples=[
         ['01.png', True, True, 2, 0.7],
         ['02.jpg', True, True, 2, 0.7],
